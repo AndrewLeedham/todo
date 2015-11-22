@@ -1,3 +1,22 @@
+{$, View} = require 'atom-space-pen-views'
+
+class MyView extends View
+  @content: ->
+    @tag 'todo', =>
+      @h1 'TODO'
+      @subview 'controls', new Controls()
+      @tag 'item-container'
+
+
+class Controls extends View
+  @content: ->
+    @tag 'controls', class: 'block', =>
+      @button 'refresh', class: 'btn'
+
+
+
+
+
 module.exports =
 class TodoView
   constructor: (serializedState) ->
@@ -11,6 +30,10 @@ class TodoView
     @element.appendChild header
     @element.appendChild this.createControls()
     @element.appendChild @itemContainer
+
+    myView = new MyView()
+    console.log myView
+    @element.appendChild myView.element
 
   createControls: () ->
     controls = document.createElement 'controls'
