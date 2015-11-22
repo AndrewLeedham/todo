@@ -1,5 +1,6 @@
 {$, View} = require 'atom-space-pen-views'
 Controls = require './Controls';
+Section = require './Section'
 
 class MyView extends View
   @content: ->
@@ -9,8 +10,10 @@ class MyView extends View
         onRefresh: () ->
           atom.emitter.emit 'todo:refresh'
       )
-      @tag 'item-container'
-      # TODO: figure out how to dynamically empty/populate this
+      @tag 'item-container', =>
+        # TODO: figure out how to dynamically empty/populate this
+        @subview 'section', new Section()
+
 
   onRefresh: ->
     # TODO: get this guy to execute from Controls
