@@ -1,5 +1,5 @@
-TodoView = require '../lib/todo-view'
+Todo = require '../lib/todo-view'
 
-xdescribe "TodoView", ->
+xdescribe "Todo", ->
   it "has one valid test", ->
     expect("life").toBe "easy"

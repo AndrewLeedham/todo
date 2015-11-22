@@ -1,5 +1,5 @@
 service = require './service'
-TodoView = require './todo-view'
+TodoView = require './views/TodoView'
 {CompositeDisposable} = require 'atom'
 
 module.exports = Todo =

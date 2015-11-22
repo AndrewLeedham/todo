@@ -1,24 +1,22 @@
 {$, View} = require 'atom-space-pen-views'
+Controls = require './Controls';
 
 class MyView extends View
   @content: ->
     @tag 'todo', =>
       @h1 'TODO'
-      @subview 'controls', new Controls()
+      @subview 'controls', new Controls(
+        onRefresh: () ->
+          atom.emitter.emit 'todo:refresh'
+      )
       @tag 'item-container'
+      # TODO: figure out how to dynamically empty/populate this
 
-
-class Controls extends View
-  @content: ->
-    @tag 'controls', class: 'block', =>
-      @button 'refresh', class: 'btn'
-
-
-
-
+  onRefresh: ->
+    # TODO: get this guy to execute from Controls
 
 module.exports =
-class TodoView
+class Todo
   constructor: (serializedState) ->
     @element = document.createElement 'todo'
 
@@ -32,7 +30,6 @@ class TodoView
     @element.appendChild @itemContainer
 
     myView = new MyView()
-    console.log myView
     @element.appendChild myView.element
 
   createControls: () ->
