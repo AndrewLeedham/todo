@@ -1,87 +1,39 @@
-{$, View} = require 'atom-space-pen-views'
-Controls = require './Controls';
-Section = require './Section'
-
-class MyView extends View
-  @content: ->
-    @tag 'todo', =>
-      @h1 'TODO'
-      @subview 'controls', new Controls(
-        onRefresh: () ->
-          atom.emitter.emit 'todo:refresh'
-      )
-      @tag 'item-container', =>
-        # TODO: figure out how to dynamically empty/populate this
-        @subview 'section', new Section()
-
-
-  onRefresh: ->
-    # TODO: get this guy to execute from Controls
+EasyView = require './EasyView'
+$ = require 'jquery'
+Item = require './Item'
 
 module.exports =
-class Todo
+class Todo extends EasyView
   constructor: (serializedState) ->
     @element = document.createElement 'todo'
+    super(@element)
 
-    header = document.createElement 'h1'
-    header.textContent = 'TODO'
+  template: './templates/todo.html'
 
-    @itemContainer = document.createElement 'item-container'
-
-    @element.appendChild header
-    @element.appendChild this.createControls()
-    @element.appendChild @itemContainer
-
-    myView = new MyView()
-    @element.appendChild myView.element
-
-  createControls: () ->
-    controls = document.createElement 'controls'
-    controls.classList.add 'block'
-
-    refresh = document.createElement 'button'
-    refresh.textContent = 'refresh'
-    refresh.classList.add 'btn'
-
-    refresh.addEventListener 'click', () ->
-      atom.emitter.emit 'todo:refresh'
-
-    controls.appendChild refresh
-
-    return controls
+  onRefreshClick: () ->
+    atom.emitter.emit 'todo:refresh'
 
   emptyItems: () ->
-    while child = @itemContainer.lastChild
-      @itemContainer.removeChild child
+    $('item-container', @element).empty()
 
   renderItems: (items) =>
     @emptyItems()
     @addItem item for item in items
 
   addItem: (item) ->
-    todoItem = document.createElement 'todo-item'
-    todoItem.appendChild @createSection item
-    todoItem.appendChild @addTodoText(todoMatch, item) for todoMatch in item.matches
-
-    @itemContainer.appendChild todoItem
-
-  createSection: (item) ->
-    todoSection = document.createElement 'todo-section'
-    # TODO: make this less rigid, so it can work on single files
-    todoSection.textContent = item.filePath
-    todoSection.classList.add 'text-subtle'
-    return todoSection
+    itemView = new Item($('item-container', @element).get(0))
 
   addTodoText: (todoMatch, item) ->
     me = this
     todoText = document.createElement 'todo-text'
     todoText.textContent = todoMatch.matchText
-    todoText.addEventListener 'click', () ->
-      me.onItemClick todoMatch, item
+    # todoText.addEventListener 'click', () ->
+    #   me.onItemClick todoMatch, item
 
     return todoText
 
   onItemClick: (item, section) ->
+    console.log 'onItemClick'
     atom.workspace.open section.filePath, {
       initialLine: item.range[0][0]
       initialColumn: item.range[0][1]

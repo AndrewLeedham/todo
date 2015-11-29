@@ -1,7 +1,5 @@
-{View} = require 'atom-space-pen-views'
+EasyView = require './EasyView'
 
 module.exports =
-class Item extends View
-  @content: ->
-    @tag 'item', =>
-      @div 'todo text here'
+class Item extends EasyView
+  template: './templates/item.html'
