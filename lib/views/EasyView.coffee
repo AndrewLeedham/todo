@@ -49,6 +49,6 @@ class EasyView
 
         if typeof method == 'function'
           element.on event, () ->
-            method()
+            method(element)
         else
           console.warn 'unable to find method "' + methodName + '" in', scope

@@ -13,31 +13,17 @@ class Todo extends EasyView
   onRefreshClick: () ->
     atom.emitter.emit 'todo:refresh'
 
-  emptyItems: () ->
-    $('item-container', @element).empty()
-
   renderItems: (items) =>
     @emptyItems()
     @addItem item for item in items
 
+  emptyItems: () ->
+    $('item-container', @element).empty()
+
   addItem: (item) ->
-    itemView = new Item($('item-container', @element).get(0))
-
-  addTodoText: (todoMatch, item) ->
-    me = this
-    todoText = document.createElement 'todo-text'
-    todoText.textContent = todoMatch.matchText
-    # todoText.addEventListener 'click', () ->
-    #   me.onItemClick todoMatch, item
-
-    return todoText
-
-  onItemClick: (item, section) ->
-    console.log 'onItemClick'
-    atom.workspace.open section.filePath, {
-      initialLine: item.range[0][0]
-      initialColumn: item.range[0][1]
-    }
+    itemView = new Item(item)
+    container = $('item-container', @element).get(0)
+    itemView.render(container)
 
   # Returns an object that can be retrieved when package is activated
   serialize: ->
