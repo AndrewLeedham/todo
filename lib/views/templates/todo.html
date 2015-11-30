@@ -1,7 +1,17 @@
-<h1>TODO</h1>
-<controls class="block">
-  <button
-    class="btn"
-    data-bind="click: onRefreshClick">refresh</button>
-</controls>
-<item-container></item-container>
+<atom-panel class='right'>
+    <div class="padded">
+        <div class="inset-panel">
+            <div class="panel-heading">TODO
+              <div class='btn-toolbar controls'>
+                <div class='btn-group'>
+                  <button class="btn btn-icon icon-sync" data-bind="click: onRefreshClick"></button>
+                  <button class="btn btn-icon icon-x" data-bind="click: onCloseClick"></button>
+                </div>
+              </div>
+            </div>
+            <div class="panel-body padded">
+              <item-container></item-container>
+            </div>
+        </div>
+    </div>
+</atom-panel>
