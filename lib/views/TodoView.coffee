@@ -13,6 +13,10 @@ class Todo extends EasyView
   onRefreshClick: () ->
     atom.emitter.emit 'todo:refresh'
 
+  onCloseClick: (element) ->
+    console.log 'Uhh...?'
+    atom.emitter.emit 'todo:toggle'
+
   renderItems: (items) =>
     @emptyItems()
     @addItem item for item in items
