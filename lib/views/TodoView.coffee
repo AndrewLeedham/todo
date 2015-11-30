@@ -1,4 +1,4 @@
-EasyView = require './EasyView'
+EasyView = require 'easy-view'
 $ = require 'jquery'
 Item = require './Item'
 

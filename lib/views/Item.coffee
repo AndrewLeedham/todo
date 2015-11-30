@@ -1,4 +1,4 @@
-EasyView = require './EasyView'
+EasyView = require 'easy-view'
 
 module.exports =
 class Item extends EasyView
