@@ -29,6 +29,11 @@ module.exports = Todo =
       description: 'Define a maxmimum length for text in the todo sidebar. The full text can be revealed by hovering.'
       type: 'integer'
       default: 32
+    e_sectionTitlePattern:
+      title: 'RegExp Pattern for file titles'
+      description: 'Applied to file paths for display purposes.'
+      type: 'string'
+      default: '[^\\\\]+$'
 
   # TODO: refactor all of this so it's not so silly
 

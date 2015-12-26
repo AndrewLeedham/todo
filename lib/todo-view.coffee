@@ -52,7 +52,11 @@ class TodoView
   createSection: (item) ->
     todoSection = document.createElement 'todo-section'
     # TODO: make this less rigid, so it can work on single files
-    todoSection.textContent = @clipText(item.filePath)
+    text = item.filePath.match new RegExp(atom.config.get('todo.e_sectionTitlePattern'))
+    if text != null
+      todoSection.textContent = @clipText(text)
+    else
+      todoSection.textContent = @clipText(item.filePath)
     todoSection.setAttribute 'title', item.filePath
     todoSection.classList.add 'text-subtle'
     return todoSection

@@ -13,3 +13,5 @@ To configure options, open *Settings View: View Installed Packages*, find the "t
 
 * exclude directories (.gitignore directories are ignored automatically)
 * customize RegExp used to find items
+* customize the display length of file paths and todo's
+* customize the RegExp used to display file paths
