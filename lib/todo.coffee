@@ -24,6 +24,11 @@ module.exports = Todo =
       default: []
       items:
         type: 'string'
+    d_maxLength:
+      title: 'Maximum Length'
+      description: 'Define a maxmimum length for text in the todo sidebar. The full text can be revealed by hovering.'
+      type: 'integer'
+      default: 32
 
   # TODO: refactor all of this so it's not so silly
 

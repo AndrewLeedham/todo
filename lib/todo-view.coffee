@@ -42,17 +42,26 @@ class TodoView
 
     @itemContainer.appendChild todoItem
 
+  clipText: (text) ->
+    max = atom.config.get('todo.d_maxLength')
+    if text.length > max
+      return text.substring(0, max-3) + "..."
+    else
+      return text
+
   createSection: (item) ->
     todoSection = document.createElement 'todo-section'
     # TODO: make this less rigid, so it can work on single files
-    todoSection.textContent = item.filePath
+    todoSection.textContent = @clipText(item.filePath)
+    todoSection.setAttribute 'title', item.filePath
     todoSection.classList.add 'text-subtle'
     return todoSection
 
   addTodoText: (todoMatch, item) ->
     me = this
     todoText = document.createElement 'todo-text'
-    todoText.textContent = todoMatch.matchText
+    todoText.textContent = @clipText(todoMatch.matchText)
+    todoText.setAttribute 'title', todoMatch.matchText
     todoText.addEventListener 'click', () ->
       me.onItemClick todoMatch, item
 
